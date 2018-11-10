@@ -4,18 +4,20 @@ from types import FunctionType
 def profile(fo):
 
         def new_fo():
-            if str(type(fo)) == "<class 'function'>":
+            if isinstance(fo, FunctionType):
                 print(fo.__name__, 'started')
                 t = timer()
                 fo()
                 delta = timer() - t
                 print('{} finished in {} seconds\n'.format(fo.__name__, delta))
             else:
-                for i in methods(fo):
-                    r = timer()
-                    print(fo.__name__,'.',i, ' started', sep = '')
-                    delta = timer() - r
-                    print(fo.__name__, '.', i, ' finished in {} seconds\n'.format(delta), sep = '')
+                for i in fo.__dict__:
+                    if isinstance(fo.__dict__[i], FunctionType):
+                        print(fo.__dict__[i].__name__, 'started')
+                        t = timer()
+                        fo.__dict__[i]
+                        delta = timer() - t
+                        print('{} finished in {} seconds\n'.format(fo.__dict__[i].__name__, delta))
         return new_fo
 
 
@@ -32,6 +34,8 @@ class Bar():
     def __init__(self):
         pass
     def foo():
+        pass
+    def fooo():
         pass
 
 foo()
