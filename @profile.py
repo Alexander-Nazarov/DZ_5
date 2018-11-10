@@ -5,21 +5,22 @@ def profile(fo):
 
         def new_fo():
             if isinstance(fo, FunctionType):
-                print(fo.__name__, 'started')
-                t = timer()
-                fo()
-                delta = timer() - t
-                print('{} finished in {} seconds\n'.format(fo.__name__, delta))
+                output(fo)
             else:
                 for i in fo.__dict__:
                     if isinstance(fo.__dict__[i], FunctionType):
-                        print(fo.__dict__[i].__name__, 'started')
-                        t = timer()
-                        fo.__dict__[i]
-                        delta = timer() - t
-                        print('{} finished in {} seconds\n'.format(fo.__dict__[i].__name__, delta))
+                        output(fo, True)
         return new_fo
 
+def output(func, cls = False):
+    print(func.__name__, 'started')
+    t = timer()
+    if cls:
+        func
+    else:
+        func()
+    delta = timer() - t
+    print('{} finished in {} seconds\n'.format(func.__name__, delta))
 
 def methods(cls):
     return [x for x, y in cls.__dict__.items() if type(y) == FunctionType]
