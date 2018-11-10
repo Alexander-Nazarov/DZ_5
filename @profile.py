@@ -9,7 +9,7 @@ def profile(fo):
             else:
                 for i in fo.__dict__:
                     if isinstance(fo.__dict__[i], FunctionType):
-                        output(fo, True)
+                        output(fo.__dict__[i], True)
         return new_fo
 
 def output(func, cls = False):
