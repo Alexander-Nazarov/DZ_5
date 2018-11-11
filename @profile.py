@@ -13,14 +13,14 @@ def profile(fo):
         return new_fo
 
 def output(func, cls = False):
-    print(func.__name__, 'started')
+    print(func.__qualname__, 'started')
     t = timer()
     if cls:
         func
     else:
         func()
     delta = timer() - t
-    print('{} finished in {} seconds\n'.format(func.__name__, delta))
+    print('{} finished in {} seconds\n'.format(func.__qualname__, delta))
 
 def methods(cls):
     return [x for x, y in cls.__dict__.items() if type(y) == FunctionType]
